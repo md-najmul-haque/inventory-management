@@ -23,7 +23,7 @@ const productSchema = mongoose.Schema({
         type: String,
         require: true,
         enum: {
-            value: ["kg", "liter", "pcs"],
+            values: ["kg", "liter", "pcs"],
             message: "unit value can't be {value}, must be kg/liter/pcs"
         }
     },
@@ -48,7 +48,7 @@ const productSchema = mongoose.Schema({
         type: String,
         require: true,
         enum: {
-            value: ["in-stock", "out-of-stock", "discontinued"],
+            values: ["in-stock", "out-of-stock", "discontinued"],
             message: "status can't be {value}, must be in-stock / out-of-stock / discontinued"
         }
     },
@@ -59,7 +59,19 @@ const productSchema = mongoose.Schema({
     // updatedAt: {
     //     type: Data,
     //     default: Date.now(),
-    // }
+    // },
+    supplier: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Supplier"
+    },
+    categories: [{
+        name: {
+            type: String,
+            require: true
+        },
+        _id: mongoose.Schema.Types.ObjectId,
+    }]
+
 }, {
-    timestaps: true
+    timestamps: true
 })
