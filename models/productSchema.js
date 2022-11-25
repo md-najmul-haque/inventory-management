@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+// mongoose patter, schema design => model create => query
+
 // schema design
 const productSchema = mongoose.Schema({
     name: {
@@ -75,3 +77,6 @@ const productSchema = mongoose.Schema({
 }, {
     timestamps: true
 })
+
+// create model
+const Product = mongoose.model('Product', productSchema)
