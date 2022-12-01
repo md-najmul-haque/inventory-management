@@ -1,11 +1,14 @@
 import express from "express";
 import cors from 'cors'
+import productRoutes from "./routes/v1/productRoutes.js";
 
 const app = express();
 
 //middleware 
 app.use(cors());
 app.use(express.json()) // to parse json file, we use it
+
+app.use('/api/v1', productRoutes)
 
 //root api
 app.get('/', (req, res) => {

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config()
-import colors from 'colors'
 import app from './app.js'
+import colors from 'colors'
 
 //Database connection 
 mongoose.connect(process.env.DATABASE).then(() => {
