@@ -62,17 +62,17 @@ const productSchema = mongoose.Schema({
     //     type: Data,
     //     default: Date.now(),
     // },
-    supplier: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Supplier"
-    },
-    categories: [{
-        name: {
-            type: String,
-            require: true
-        },
-        _id: mongoose.Schema.Types.ObjectId,
-    }]
+    // supplier: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Supplier"
+    // },
+    // categories: [{
+    //     name: {
+    //         type: String,
+    //         require: true
+    //     },
+    //     _id: mongoose.Schema.Types.ObjectId,
+    // }]
 
 }, {
     timestamps: true
@@ -80,3 +80,5 @@ const productSchema = mongoose.Schema({
 
 // create model
 const Product = mongoose.model('Product', productSchema)
+
+export default Product; 

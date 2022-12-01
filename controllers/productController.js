@@ -1,4 +1,23 @@
+import Product from "../models/productSchema.js"
 
-export const saveProduct = (req, res, next) => {
-    res.send('it is working')
+export const saveProduct = async (req, res, next) => {
+    // there have two ways of save data in backend, one is save another one is create
+
+    try {
+        // save
+        const product = new Product(req.body)
+        const result = await product.save()
+        res.status(200).json({
+            status: 'success',
+            message: 'Data inserted successfully',
+            data: result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: 'Fail to insert data',
+            error: error.message
+        })
+    }
+
 }
