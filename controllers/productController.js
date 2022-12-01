@@ -4,9 +4,12 @@ export const saveProduct = async (req, res, next) => {
     // there have two ways of save data in backend, one is save another one is create
 
     try {
+        //create
+        const result = await Product.create(req.body)
+
         // save
-        const product = new Product(req.body)
-        const result = await product.save()
+        // const product = new Product(req.body)
+        // const result = await product.save()
         res.status(200).json({
             status: 'success',
             message: 'Data inserted successfully',
