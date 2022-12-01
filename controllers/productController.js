@@ -5,11 +5,19 @@ export const saveProduct = async (req, res, next) => {
 
     try {
         //create
-        const result = await Product.create(req.body)
+        // const result = await Product.create(req.body)
 
         // save
-        // const product = new Product(req.body)
-        // const result = await product.save()
+        const product = new Product(req.body)
+
+        // if we use save method then we can validate like this way
+        // if (product.quantity === 0) {
+        //     product.status = 'out-of-stock'
+
+        // }
+        const result = await product.save()
+
+
         res.status(200).json({
             status: 'success',
             message: 'Data inserted successfully',

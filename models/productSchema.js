@@ -78,6 +78,19 @@ const productSchema = mongoose.Schema({
     timestamps: true
 })
 
+//mongoose middleware for saving data pre / post
+productSchema.pre('save', function (next) {
+    if (this.quantity === 0) {
+        this.status = 'out-of-stock'
+    }
+    next()
+})
+
+productSchema.post('save', function (doc, next) {
+    console.log('after saving data')
+    next()
+})
+
 // create model
 const Product = mongoose.model('Product', productSchema)
 
