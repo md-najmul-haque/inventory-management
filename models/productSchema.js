@@ -91,6 +91,11 @@ productSchema.post('save', function (doc, next) {
     next()
 })
 
+// create instance method 
+productSchema.methods.logger = function () {
+    console.log(`Data saved successfully for ${this.name}`)
+}
+
 // create model
 const Product = mongoose.model('Product', productSchema)
 

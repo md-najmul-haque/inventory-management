@@ -16,6 +16,7 @@ export const saveProduct = async (req, res, next) => {
 
         // }
         const result = await product.save()
+        result.logger()
 
 
         res.status(200).json({
