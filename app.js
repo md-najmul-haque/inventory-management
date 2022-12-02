@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json()) // to parse json file, we use it
 
-app.use('/api/v1', productRoutes)
+app.use('/api/v1/product', productRoutes)
 
 //root api
 app.get('/', (req, res) => {

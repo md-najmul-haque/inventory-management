@@ -1,4 +1,4 @@
-import { getProductServices, saveProductServices } from "../services/productServices.js"
+import { getProductService, saveProductService, updateProductService } from "../services/productServices.js"
 
 export const saveProduct = async (req, res, next) => {
     // there have two ways of save data in backend, one is save another one is create
@@ -17,7 +17,7 @@ export const saveProduct = async (req, res, next) => {
         // }
         // const result = await product.save()
 
-        const result = await saveProductServices(req.body)
+        const result = await saveProductService(req.body)
 
         result.logger()
 
@@ -80,7 +80,7 @@ export const getProduct = async (req, res, next) => {
         // const result = await Product.findById(undefined) // data load successfully empty data
         // const result = await Product.find(undefined) // data load successfully all data
 
-        const result = await getProductServices()
+        const result = await getProductService()
 
         res.status(200).json({
             status: 'success',
@@ -95,5 +95,26 @@ export const getProduct = async (req, res, next) => {
             error: error.message
         })
 
+    }
+}
+
+export const updateProduct = async (req, res, next) => {
+    try {
+
+        const { id } = req.params
+
+        const result = await updateProductService(id, req.body)
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Data updated successfully',
+            data: result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: 'Fail to update data',
+            error: error.message
+        })
     }
 }
