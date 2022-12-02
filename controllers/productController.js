@@ -33,3 +33,23 @@ export const saveProduct = async (req, res, next) => {
     }
 
 }
+
+export const getProduct = async (req, res, next) => {
+    try {
+        const result = await Product.find()
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Data load successfully',
+            data: result
+        })
+
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: 'Fail to load data',
+            error: error.message
+        })
+
+    }
+}
