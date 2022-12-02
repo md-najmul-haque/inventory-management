@@ -36,7 +36,18 @@ export const saveProduct = async (req, res, next) => {
 
 export const getProduct = async (req, res, next) => {
     try {
-        const result = await Product.find()
+        // or operator used in find method
+        // const result = await Product.find({ $or: [{ _id: "6388d1571de1789cd3666a07" }, { name: "sfdkf" }] })
+
+        // ne (not equal) operator used in find method
+        // const result = await Product.find({ status: { $ne: "out-of-stock" } })
+
+        // gt (greater that) / gte(greater that or equal) operator used in find method
+        // const result = await Product.find({ quantity: { $gt: 100 } })
+        // const result = await Product.find({ quantity: { $gte: 100 } })
+
+        // in operator used in find method
+        // const result = await Product.find({ name: { $in: ['rice', 'dal'] } })
 
         res.status(200).json({
             status: 'success',
