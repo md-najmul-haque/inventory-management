@@ -49,6 +49,34 @@ export const getProduct = async (req, res, next) => {
         // in operator used in find method
         // const result = await Product.find({ name: { $in: ['rice', 'dal'] } })
 
+        // get only specific property
+        // const result = await Product.find({}, 'name quantity')
+
+        // if we want to remove some special property
+        // const result = await Product.find({}, '-name -quantity')
+
+
+        // if we want to remove some special property and limit it
+        // const result = await Product.find({}, '-name -quantity').limit(1)
+
+        // if we want to sort by descending order
+        // const result = await Product.find({}).sort({ quantity: -1 })
+
+        // query builders in mongoose
+
+        // const result = await Product.find({}).where("name").equals("rice").where("quantity").gt(100).lt(600)
+        const result = await Product.find({})
+            .where("name").equals(/\w/)
+            .where("quantity").gt(100).lt(600)
+            .limit(2).sort({ quantity: -1 })
+
+
+        //find by id
+        // const result = await Product.findById('6388d1571de1789cd3666a07')
+
+        // const result = await Product.findById(undefined) // data load successfully empty data
+        // const result = await Product.find(undefined) // data load successfully all data
+
         res.status(200).json({
             status: 'success',
             message: 'Data load successfully',
