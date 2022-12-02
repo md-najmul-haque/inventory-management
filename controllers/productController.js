@@ -1,4 +1,4 @@
-import Product from "../models/productSchema.js"
+import { getProductServices, saveProductServices } from "../services/productServices.js"
 
 export const saveProduct = async (req, res, next) => {
     // there have two ways of save data in backend, one is save another one is create
@@ -8,14 +8,17 @@ export const saveProduct = async (req, res, next) => {
         // const result = await Product.create(req.body)
 
         // save
-        const product = new Product(req.body)
+        // const product = new Product(req.body)
 
         // if we use save method then we can validate like this way
         // if (product.quantity === 0) {
         //     product.status = 'out-of-stock'
 
         // }
-        const result = await product.save()
+        // const result = await product.save()
+
+        const result = await saveProductServices(req.body)
+
         result.logger()
 
 
@@ -65,10 +68,10 @@ export const getProduct = async (req, res, next) => {
         // query builders in mongoose
 
         // const result = await Product.find({}).where("name").equals("rice").where("quantity").gt(100).lt(600)
-        const result = await Product.find({})
-            .where("name").equals(/\w/)
-            .where("quantity").gt(100).lt(600)
-            .limit(2).sort({ quantity: -1 })
+        // const result = await Product.find({})
+        //     .where("name").equals(/\w/)
+        //     .where("quantity").gt(100).lt(600)
+        //     .limit(2).sort({ quantity: -1 })
 
 
         //find by id
@@ -76,6 +79,8 @@ export const getProduct = async (req, res, next) => {
 
         // const result = await Product.findById(undefined) // data load successfully empty data
         // const result = await Product.find(undefined) // data load successfully all data
+
+        const result = await getProductServices()
 
         res.status(200).json({
             status: 'success',
