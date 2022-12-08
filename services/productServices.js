@@ -24,7 +24,16 @@ export const updateProductService = async (productId, data) => {
     return updateProduct;
 }
 
-export const bulkUpdateProductService = async (Ids, data) => {
-    const result = await Product.updateMany({ _id: data.ids }, data, { runValidators: true })
+export const bulkUpdateProductService = async (data) => {
+    // const result = await Product.updateMany({ _id: data.ids }, data.data, { runValidators: true })
+
+    const products = [];
+
+    data.ids.forEach(product => {
+        products.push(Product.updateOne({ _id: product.id }, product.data)) // we can't use await inside loop because forEach synchronous function.
+
+    })
+    const result = await Promise.all(products)
     return result;
+
 }
