@@ -1,4 +1,4 @@
-import { getProductService, saveProductService, updateProductService } from "../services/productServices.js"
+import { bulkUpdateProductService, getProductService, saveProductService, updateProductService } from "../services/productServices.js"
 
 export const saveProduct = async (req, res, next) => {
     // there have two ways of save data in backend, one is save another one is create
@@ -105,6 +105,23 @@ export const updateProduct = async (req, res, next) => {
 
         const result = await updateProductService(id, req.body)
 
+        res.status(200).json({
+            status: 'success',
+            message: 'Data updated successfully',
+            data: result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: 'Fail to update data',
+            error: error.message
+        })
+    }
+}
+
+export const bulkUpdateProduct = async (req, res, next) => {
+    try {
+        const result = await bulkUpdateProductService(req.body)
         res.status(200).json({
             status: 'success',
             message: 'Data updated successfully',
