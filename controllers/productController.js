@@ -80,7 +80,11 @@ export const getProduct = async (req, res, next) => {
         // const result = await Product.findById(undefined) // data load successfully empty data
         // const result = await Product.find(undefined) // data load successfully all data
 
-        const result = await getProductService()
+        const queryObject = { ...req.query }
+
+        console.log(queryObject)
+
+        const result = await getProductService(queryObject)
 
         res.status(200).json({
             status: 'success',
