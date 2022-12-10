@@ -161,10 +161,13 @@ export const deleteProductById = async (req, res, next) => {
         })
     }
 }
+// to get any things we use query 
+// to delete and update we use body
 
 export const bulkDeleteProduct = async (req, res, next) => {
     try {
         const result = await bulkDeleteProductService(req.body.ids)
+
         res.status(200).json({
             status: 'success',
             message: 'Data deleted successfully',
