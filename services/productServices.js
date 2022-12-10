@@ -43,3 +43,10 @@ export const deleteProductByIdService = async (id) => {
     return result;
 
 }
+
+export const bulkDeleteProductService = async (ids) => {
+    const result = await Product.deleteMany({ _id: ids }, { runValidators: true })
+
+    return result;
+
+}

@@ -1,4 +1,4 @@
-import { bulkUpdateProductService, deleteProductByIdService, getProductService, saveProductService, updateProductService } from "../services/productServices.js"
+import { bulkDeleteProductService, bulkUpdateProductService, deleteProductByIdService, getProductService, saveProductService, updateProductService } from "../services/productServices.js"
 
 export const saveProduct = async (req, res, next) => {
     // there have two ways of save data in backend, one is save another one is create
@@ -140,6 +140,23 @@ export const deleteProductById = async (req, res, next) => {
     try {
         const { id } = req.params
         const result = await deleteProductByIdService(id)
+        res.status(200).json({
+            status: 'success',
+            message: 'Data deleted successfully',
+            data: result
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: 'Fail to delete data',
+            error: error.message
+        })
+    }
+}
+
+export const bulkDeleteProduct = async (req, res, next) => {
+    try {
+        const result = await bulkDeleteProductService(req.body.ids)
         res.status(200).json({
             status: 'success',
             message: 'Data deleted successfully',
