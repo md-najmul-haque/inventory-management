@@ -7,7 +7,9 @@ export const saveProductService = async (data) => {
 }
 
 export const getProductService = async (filters, queries) => {
-    const product = await Product.find(filters).sort(queries.sortBy) // since query data comes as a object. so are not using {} inside find method
+    const product = await Product.find(filters)
+        .select(queries.fields)
+        .sort(queries.sortBy) // since query data comes as a object. so are not using {} inside find method
     return product;
 }
 

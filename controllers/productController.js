@@ -96,7 +96,13 @@ export const getProduct = async (req, res, next) => {
         if (req.query.sort) {
             const sortBy = req.query.sort.split(',').join(' ')
             queries.sortBy = sortBy
-            console.log(sortBy)
+            // console.log(sortBy)
+        }
+
+        if (req.query.fields) {
+            const sortBy = req.query.fields.split(',').join(' ')
+            queries.fields = sortBy
+            // console.log(sortBy)
         }
 
         const result = await getProductService(filters, queries)
