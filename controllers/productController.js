@@ -80,7 +80,7 @@ export const getProduct = async (req, res, next) => {
         // const result = await Product.findById(undefined) // data load successfully empty data
         // const result = await Product.find(undefined) // data load successfully all data
 
-        const filters = { ...req.query }
+        let filters = { ...req.query }
 
         console.log(filters)
 
@@ -90,6 +90,14 @@ export const getProduct = async (req, res, next) => {
 
         console.log(filters)
         // console.log(req.query)
+
+        //{price: {$gt:50}}
+        //{price: {gt:'50'}}; we get it if we send data from postman like price[gt]=50
+
+        let filtersString = JSON.stringify(filters);
+        filtersString = filtersString.replace(/\b(gt|gte|lt|lte)\b/g, match => `$${match}`)
+
+        filters = JSON.parse(filtersString)
 
         const queries = {};
 
