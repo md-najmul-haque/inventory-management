@@ -80,11 +80,26 @@ export const getProduct = async (req, res, next) => {
         // const result = await Product.findById(undefined) // data load successfully empty data
         // const result = await Product.find(undefined) // data load successfully all data
 
-        const queryObject = { ...req.query }
+        const filters = { ...req.query }
 
-        console.log(queryObject)
+        console.log(filters)
 
-        const result = await getProductService(queryObject)
+        // exclude filed
+        const excludeFields = ["sort", "page", "limit"]
+        excludeFields.forEach(filed => delete filters[filed])
+
+        console.log(filters)
+        // console.log(req.query)
+
+        const queries = {};
+
+        if (req.query.sort) {
+            const sortBy = req.query.sort.split(',').join(' ')
+            queries.sortBy = sortBy
+            console.log(sortBy)
+        }
+
+        const result = await getProductService(filters, queries)
 
         res.status(200).json({
             status: 'success',
