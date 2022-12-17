@@ -8,9 +8,15 @@ export const saveProductService = async (data) => {
 
 export const getProductService = async (filters, queries) => {
     const product = await Product.find(filters)
+        .skip(queries.skip)
+        .limit(queries.limit)
         .select(queries.fields)
         .sort(queries.sortBy) // since query data comes as a object. so are not using {} inside find method
-    return product;
+
+    const totalProducts = await Product.countDocuments(filters)
+    const pageCount = Math.ceil(totalProducts / queries.limit)
+
+    return { totalProducts, pageCount, product };
 }
 
 export const updateProductService = async (productId, data) => {

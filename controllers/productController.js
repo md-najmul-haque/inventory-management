@@ -1,3 +1,4 @@
+import { query } from "express"
 import { bulkDeleteProductService, bulkUpdateProductService, deleteProductByIdService, getProductService, saveProductService, updateProductService } from "../services/productServices.js"
 
 export const saveProduct = async (req, res, next) => {
@@ -111,6 +112,21 @@ export const getProduct = async (req, res, next) => {
             const sortBy = req.query.fields.split(',').join(' ')
             queries.fields = sortBy
             // console.log(sortBy)
+        }
+
+        if (req.query.page) {
+            const { page = 1, limit = 2 } = req.query
+
+            const skip = (page - 1) * parseInt(limit)
+            queries.skip = skip
+            queries.limit = parseInt(limit)
+            // product 40
+            // each page 10 product
+            // page 1 -> 1-10
+            // page 2 -> 11-20
+            // page 3 -> 21-30 if we want to show page 3 then we have to skip 1-20 -> (3-1)*limit
+            // page 4 -> 31-40
+
         }
 
         const result = await getProductService(filters, queries)
